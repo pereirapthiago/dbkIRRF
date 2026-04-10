@@ -1,0 +1,38 @@
+{
+    "name": "atlantic/dbk-irrf",
+    "description": "Pacote PHP para geracao e leitura de arquivos .DBK compativeis com IRPF 2026",
+    "type": "library",
+    "license": "MIT",
+    "version": "1.0.0",
+    "keywords": ["irpf", "irrf", "dbk", "receita-federal", "imposto-renda", "declaracao"],
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Thiago Pereira",
+            "email": "pereirapthiago@yahoo.com.br"
+        }
+    ],
+    "require": {
+        "php": "^8.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "DbkIrrf\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DbkIrrf\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-text"
+    }
+}
