@@ -70,8 +70,19 @@ final readonly class RegistroBemDireitoDTO implements RegistroInterface
 
         public string $codigoGrupo = '01',          // pos 1101-1102: grupo do bem (01=Imoveis, 02=Moveis, etc)
 
-        // Campos adicionais (posicoes 1104-1241, conteudo desconhecido)
-        public string $camposAdicionaisRaw5 = '',
+        // Campos adicionais (posicoes 1104-1185, conteudo desconhecido)
+        public string $camposAdicionaisRaw5a = '',
+
+        // Aplic. financeiras — posicoes alternativas (variam por grupo/codigo)
+        public ValorMonetario $aplicFinancRendPerdaAlt = new ValorMonetario(0),    // pos 1186-1198
+        public ValorMonetario $aplicFinancImpExteriorAlt = new ValorMonetario(0),  // pos 1199-1211
+
+        // Lucros e dividendos (posicoes 1212-1237, variam por grupo/codigo)
+        public ValorMonetario $lucrosDivValorRecebido = new ValorMonetario(0),     // pos 1212-1224
+        public ValorMonetario $lucrosDivImpostoPago = new ValorMonetario(0),       // pos 1225-1237
+
+        // Campos adicionais (posicoes 1238-1241, conteudo desconhecido)
+        public string $camposAdicionaisRaw5b = '',
 
         public Checksum $checksum = new Checksum('0000000000'),
     ) {
@@ -118,7 +129,12 @@ final readonly class RegistroBemDireitoDTO implements RegistroInterface
             new CampoDTO('camposAdicionaisRaw4', 1052, 49, TipoCampo::ALFA, obrigatorio: false, descricao: 'Posicoes 1052-1100 — conteudo desconhecido'),
             new CampoDTO('codigoGrupo', 1101, 2, TipoCampo::NUMERICO, descricao: 'Codigo grupo (01=Imoveis, 02=Moveis, etc)'),
             new CampoDTO('reservado1103', 1103, 1, TipoCampo::NUMERICO, obrigatorio: false, descricao: 'Posicao 1103 — constante "0"'),
-            new CampoDTO('camposAdicionaisRaw5', 1104, 138, TipoCampo::ALFA, obrigatorio: false, descricao: 'Posicoes 1104-1241 — conteudo desconhecido'),
+            new CampoDTO('camposAdicionaisRaw5a', 1104, 82, TipoCampo::ALFA, obrigatorio: false, descricao: 'Posicoes 1104-1185 — conteudo desconhecido'),
+            new CampoDTO('aplicFinancRendPerdaAlt', 1186, 13, TipoCampo::NUMERICO, descricao: 'Aplic Fin. Renda ou Perda — posicao alt (centavos)'),
+            new CampoDTO('aplicFinancImpExteriorAlt', 1199, 13, TipoCampo::NUMERICO, descricao: 'Aplic Fin. Imposto pago Exterior — posicao alt (centavos)'),
+            new CampoDTO('lucrosDivValorRecebido', 1212, 13, TipoCampo::NUMERICO, descricao: 'Lucros e Div.: Valor recebido (centavos)'),
+            new CampoDTO('lucrosDivImpostoPago', 1225, 13, TipoCampo::NUMERICO, descricao: 'Lucros e Div.: Imposto pago Exterior/IRRF Brasil (centavos)'),
+            new CampoDTO('camposAdicionaisRaw5b', 1238, 4, TipoCampo::ALFA, obrigatorio: false, descricao: 'Posicoes 1238-1241 — conteudo desconhecido'),
             new CampoDTO('checksum', 1242, 10, TipoCampo::NUMERICO),
         );
     }

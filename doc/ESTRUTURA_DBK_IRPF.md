@@ -392,6 +392,28 @@
 | 1104    | 1241    | 138 | Alfa   | Campos adicionais / padding | (espacos e zeros)                             | BAIXA     |
 | 1242    | 1251    | 10  | Num    | **Checksum**                | "0820608248"                                  | ALTA      |
 
+### Posicoes condicionais dentro do bloco 1104-1241 (variam por grupo/codigo)
+
+O bloco de posicoes 1104-1241 (documentado como "campos adicionais") contem subcampos cujas posicoes variam conforme o grupo e o codigo do bem. As posicoes abaixo foram identificadas para combinacoes especificas:
+
+#### Grupo 07 - Aplicacoes financeiras (quando codigo indica aplic. financeira)
+
+| Pos Ini | Pos Fim | Tam | Tipo | Campo                              | Observacao                              | Confianca |
+|---------|---------|-----|------|------------------------------------|-----------------------------------------|-----------|
+| 1186    | 1198    | 13  | Num  | Aplic Fin. Rendimento ou Perda (c) | Alternativa as posicoes 1026-1038       | MEDIA     |
+| 1199    | 1211    | 13  | Num  | Aplic Fin. Imposto pago Exterior (c) | Alternativa as posicoes 1039-1051     | MEDIA     |
+
+> **Nota**: As posicoes 1026-1038 e 1039-1051 (documentadas na tabela principal acima) foram identificadas em uma combinacao de grupo/codigo. Para outros grupos/codigos de aplicacoes financeiras, as mesmas informacoes podem aparecer nas posicoes 1186-1211. O mapeamento exato por grupo/codigo ainda esta em investigacao.
+
+#### Grupo 07 - Lucros e Dividendos
+
+| Pos Ini | Pos Fim | Tam | Tipo | Campo                                     | Observacao                              | Confianca |
+|---------|---------|-----|------|-------------------------------------------|-----------------------------------------|-----------|
+| 1212    | 1224    | 13  | Num  | Lucros e Div.: Valor recebido (c)         | Dentro do bloco 1104-1241               | MEDIA     |
+| 1225    | 1237    | 13  | Num  | Lucros e Div.: Imp. pago Exterior/IRRF BR (c) | Dentro do bloco 1104-1241           | MEDIA     |
+
+> **Nota**: Esses campos aparecem quando o grupo/codigo do bem corresponde a lucros e dividendos recebidos. O campo imposto pode representar imposto pago no exterior ou IRRF retido no Brasil dependendo da natureza do rendimento.
+
 ---
 
 ## REGISTRO 28 - Dividas e Onus Reais - 576 caracteres

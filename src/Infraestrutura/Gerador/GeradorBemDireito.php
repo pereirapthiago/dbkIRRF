@@ -55,7 +55,12 @@ final class GeradorBemDireito extends GeradorRegistroBase
             'aplicFinancImpExterior' => $this->monetario($r->aplicFinancImpExterior, $l->campo('aplicFinancImpExterior')->tamanho),
             'camposAdicionaisRaw4' => $this->rawOuEspacos($r->camposAdicionaisRaw4, $l->campo('camposAdicionaisRaw4')->tamanho),
             'codigoGrupo' => $this->numero($r->codigoGrupo, $l->campo('codigoGrupo')->tamanho),
-            'camposAdicionaisRaw5' => $this->rawOuEspacos($r->camposAdicionaisRaw5, $l->campo('camposAdicionaisRaw5')->tamanho),
+            'camposAdicionaisRaw5a' => $this->rawOuEspacos($r->camposAdicionaisRaw5a, $l->campo('camposAdicionaisRaw5a')->tamanho),
+            'aplicFinancRendPerdaAlt' => $this->monetario($r->aplicFinancRendPerdaAlt, $l->campo('aplicFinancRendPerdaAlt')->tamanho),
+            'aplicFinancImpExteriorAlt' => $this->monetario($r->aplicFinancImpExteriorAlt, $l->campo('aplicFinancImpExteriorAlt')->tamanho),
+            'lucrosDivValorRecebido' => $this->monetario($r->lucrosDivValorRecebido, $l->campo('lucrosDivValorRecebido')->tamanho),
+            'lucrosDivImpostoPago' => $this->monetario($r->lucrosDivImpostoPago, $l->campo('lucrosDivImpostoPago')->tamanho),
+            'camposAdicionaisRaw5b' => $this->rawOuEspacos($r->camposAdicionaisRaw5b, $l->campo('camposAdicionaisRaw5b')->tamanho),
         ]);
     }
 }

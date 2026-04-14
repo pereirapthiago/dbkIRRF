@@ -137,6 +137,42 @@ final class LeitorBemDireitoTest extends TestCase
         $this->assertSame(75000, $lido->aplicFinancImpExterior->centavos);
     }
 
+    public function testDevePreservarAplicFinancPosicaoAlternativa(): void
+    {
+        $original = new RegistroBemDireitoDTO(
+            cpf: new Cpf('12345678901'),
+            aplicFinancRendPerdaAlt: new ValorMonetario(1200000),
+            aplicFinancImpExteriorAlt: new ValorMonetario(80000),
+        );
+
+        $linha = $this->gerador->gerar($original);
+        $this->assertSame(1251, strlen($linha));
+
+        /** @var RegistroBemDireitoDTO $lido */
+        $lido = $this->leitor->ler($linha);
+
+        $this->assertSame(1200000, $lido->aplicFinancRendPerdaAlt->centavos);
+        $this->assertSame(80000, $lido->aplicFinancImpExteriorAlt->centavos);
+    }
+
+    public function testDevePreservarLucrosEDividendos(): void
+    {
+        $original = new RegistroBemDireitoDTO(
+            cpf: new Cpf('12345678901'),
+            lucrosDivValorRecebido: new ValorMonetario(5000000),
+            lucrosDivImpostoPago: new ValorMonetario(750000),
+        );
+
+        $linha = $this->gerador->gerar($original);
+        $this->assertSame(1251, strlen($linha));
+
+        /** @var RegistroBemDireitoDTO $lido */
+        $lido = $this->leitor->ler($linha);
+
+        $this->assertSame(5000000, $lido->lucrosDivValorRecebido->centavos);
+        $this->assertSame(750000, $lido->lucrosDivImpostoPago->centavos);
+    }
+
     public function testDeveSuportarTipoBemDireito(): void
     {
         $this->assertSame(TipoRegistro::BEM_DIREITO, $this->leitor->suportaTipo());
