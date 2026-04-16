@@ -28,7 +28,7 @@ final class GeradorDependente extends GeradorRegistroBase
             'tipoRegistro' => $this->numero('25', $l->campo('tipoRegistro')->tamanho),
             'cpf' => $r->cpf->valor,
             'sequencial' => $this->numero($r->sequencial, $l->campo('sequencial')->tamanho),
-            'tipoDependente' => $r->tipoDependente->valor,
+            'tipoDependente' => $this->numero($r->tipoDependente, $l->campo('tipoDependente')->tamanho),
             'nomeDependente' => $this->texto($r->nomeDependente, $l->campo('nomeDependente')->tamanho),
             'dataNascimento' => $this->data($r->dataNascimento),
             'cpfDependente' => $this->cpfOuEspacos($r->cpfDependente),

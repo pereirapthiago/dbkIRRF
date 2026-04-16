@@ -10,7 +10,7 @@ Pacote PHP para geracao e leitura de arquivos `.DBK` compativeis com o programa 
 ## Instalacao
 
 ```bash
-composer require atlantic/dbk-irrf
+composer require pereirapthiago/dbk-irrf
 ```
 
 ## Uso Rapido

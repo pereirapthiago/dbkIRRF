@@ -20,7 +20,7 @@ final readonly class RegistroDependenteDTO implements RegistroInterface
     public function __construct(
         public Cpf $cpf,
         public int $sequencial = 1,
-        public CodigoDependente $tipoDependente = new CodigoDependente(CodigoDependente::FILHO_ATE_21),
+        public string $tipoDependente = '',
         public string $nomeDependente = '',
         public Data $dataNascimento = new Data('00000000'),
         public ?Cpf $cpfDependente = null,

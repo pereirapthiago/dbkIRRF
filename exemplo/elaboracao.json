@@ -1,218 +1,201 @@
 {
-  "id": 30,
+  "id": 217,
   "questionario_id": null,
   "tipo_id": 1,
-  "pessoa_id": 644,
+  "pessoa_id": 659,
   "status_id": 14,
   "responsavel_id": 1,
   "ano": 2025,
   "inicio": "2024-12-31",
   "fim": "2025-12-31",
-  "numero_recibo_anterior": "4082548219",
+  "numero_recibo_anterior": "408254821948",
   "modelo_calculo": "simplificado",
-  "created": "2026-04-16T09:36:19-03:00",
-  "modified": "2026-04-16T09:46:39-03:00",
-  "elab_imposto_pago": {
-    "complementar": "0",
-    "exterior": "0",
-    "retido_titular": "1500.00",
-    "retido_dependente": "0",
-    "carne_titular": "0",
-    "carne_dependente": "0"
-  },
-  "elab_pagamentos": [
-    {
-      "elab_tipo_pagamento": { "codigo": "21" },
-      "cpf_cnpj": "33000167000101",
-      "nome": "OPERADORA SAUDE SA",
-      "valor": "4800.00",
-      "parcela": "0.00",
-      "descricao": "PLANO DE SAUDE FAMILIAR"
-    },
-    {
-      "elab_tipo_pagamento": { "codigo": "10" },
-      "cpf_cnpj": "60872504000123",
-      "nome": "ESCOLA PARTICULAR LTDA",
-      "valor": "12000.00",
-      "parcela": "0.00",
-      "descricao": "MENSALIDADE ESCOLAR DEPENDENTE"
-    }
-  ],
-  "elab_dividas": [
-    {
-      "elab_tipo_divida": { "codigo": "11" },
-      "descricao": "FINANCIAMENTO IMOBILIARIO BANCO BRADESCO SA",
-      "valor_inicio": "180000.00",
-      "valor_fim": "165000.00",
-      "valor_pago": "15000.00"
-    }
-  ],
+  "created": "2026-04-16T14:22:35-03:00",
+  "modified": "2026-04-16T14:24:22-03:00",
+  "elab_imposto_pago": null,
+  "elab_pagamentos": [],
+  "elab_dividas": [],
   "elab_bens": [
     {
-      "elab_tipo_ben": { "codigo": "11", "grupo_codigo": "01" },
-      "descricao": "APARTAMENTO ADQUIRIDO EM 2020 - AV KOELER 260 APT 301 CENTRO PETROPOLIS RJ",
-      "valor_inicio": "300000.00",
-      "valor_fim": "300000.00",
-      "data_compra": "2020-06-15",
+      "id": 883,
+      "elab_declaracao_id": 217,
+      "tipo_id": 4,
+      "pais_id": 45,
+      "data_compra": "2025-07-18",
+      "descricao": "APARTAMENTO NO RECRIO DAS BANDEIRANTES, RIO DE JANEIRO. ADQUIRIDO POR R$ 1.300.000,00. BENFEITORIAS REALIZADAS EM 2025 NO VALOR DE R$ 300.000,00",
+      "area_total": "",
+      "unidade": null,
+      "registro_cartorio": null,
+      "matricula_imovel": null,
+      "cartorio": null,
+      "valor_inicio": "0.00",
+      "valor_fim": "1600000.00",
+      "renavam": null,
+      "iptu": "",
+      "banco": null,
+      "agencia": null,
+      "conta": null,
+      "dv": null,
+      "lucro_prejuizo": null,
+      "imposto": null,
+      "valor_recebido": null,
+      "imposto_lucro": null,
+      "created": "2026-04-16T15:40:39-03:00",
+      "modified": "2026-04-16T15:40:39-03:00",
+      "bem_pertencente_ao": null,
+      "dependente_id": null,
       "elab_bens_endereco": {
-        "logradouro": "AV KOELER",
-        "numero": "260",
-        "complemento": "APT 301",
-        "bairro": "CENTRO",
-        "cep": "25845060",
+        "id": 111,
+        "elab_bem_id": 883,
+        "logradouro": "AV JARBAS DE CARVALHO",
+        "numero": "1715",
+        "bairro": "RECREIO DAS BANDEIRANTES",
+        "cidade": "RIO DE JANEIRO",
         "uf": "RJ",
-        "cidade": "PETROPOLIS"
+        "complemento": "APARTAMENTO 202",
+        "cep": "22795445",
+        "created": "2026-04-16T15:40:39-03:00",
+        "modified": "2026-04-16T15:40:39-03:00"
       },
-      "renavam": null,
-      "pais": null,
-      "aplic_financ_rend_perda": null,
-      "aplic_financ_imp_exterior": null,
-      "lucros_div_valor_recebido": null,
-      "lucros_div_imposto_pago": null
-    },
-    {
-      "elab_tipo_ben": { "codigo": "01", "grupo_codigo": "02" },
-      "descricao": "VEICULO VOLKSWAGEN GOL 1.0 ANO 2022 PLACA ABC1D23 RENAVAM 01234567890",
-      "valor_inicio": "45000.00",
-      "valor_fim": "38000.00",
-      "data_compra": "2022-03-10",
-      "elab_bens_endereco": null,
-      "renavam": "01234567890",
-      "pais": null,
-      "aplic_financ_rend_perda": null,
-      "aplic_financ_imp_exterior": null,
-      "lucros_div_valor_recebido": null,
-      "lucros_div_imposto_pago": null
-    },
-    {
-      "elab_tipo_ben": { "codigo": "99", "grupo_codigo": "07" },
-      "descricao": "ETF VANGUARD TOTAL WORLD STOCK ETF (VT) - CONTA XP INVESTMENTS EUA - CORRETORA XP INVESTMENTS CCTVM SA CNPJ 02276610000172",
-      "valor_inicio": "25000.00",
-      "valor_fim": "28000.00",
-      "data_compra": "2022-09-01",
-      "elab_bens_endereco": null,
-      "renavam": null,
-      "pais": { "descricao": "249" },
-      "aplic_financ_rend_perda": "3000.00",
-      "aplic_financ_imp_exterior": "450.00",
-      "lucros_div_valor_recebido": "500.00",
-      "lucros_div_imposto_pago": "75.00"
+      "pais": {
+        "id": 45,
+        "pai_id": 12,
+        "usuario_id": 1,
+        "nome": "Brasil",
+        "descricao": "105",
+        "ordem": null,
+        "ativo": true,
+        "created": "2024-11-04T13:03:58-03:00",
+        "modified": "2025-01-20T10:12:55-03:00",
+        "nome_en": "Brazil"
+      },
+      "elab_tipo_ben": {
+        "id": 4,
+        "codigo": 11,
+        "descricao": "Apartamento",
+        "descricao_resumida": "Apartamento",
+        "grupo_codigo": 1,
+        "grupo_nome": "Bens Imóveis",
+        "created": "2025-11-06T13:17:36-03:00",
+        "modified": "2025-11-06T13:17:36-03:00"
+      }
     }
   ],
-  "elab_rend_exigibilidades": [
-    {
-      "cpf_cnpj": "00000000000191",
-      "nome": "EMPRESA EXEMPLO LTDA",
-      "rendimentos": "5000.00",
-      "depositos": "5000.00"
-    }
-  ],
-  "elab_rend_acumulados": [
-    {
-      "cpf_cnpj": "00000000000191",
-      "nome": "EMPRESA EXEMPLO LTDA",
-      "rendimento": "15000.00",
-      "contribuicao": "1800.00",
-      "imposto": "2200.00",
-      "mes": "06",
-      "numero_meses": "3"
-    }
-  ],
+  "elab_rend_exigibilidades": [],
+  "elab_rend_acumulados": [],
   "elab_rend_pf_exterior": [],
-  "elab_rend_exclusivas": [
-    {
-      "tipo_beneficiario_id": 1,
-      "elab_tipo_rend_exclusiva": { "codigo": "6" },
-      "cpf_cnpj": "00000000000191",
-      "nome": "EMPRESA EXEMPLO LTDA",
-      "valor": "5000.00"
-    }
-  ],
-  "elab_rend_isentos": [
-    {
-      "tipo_beneficiario_id": 1,
-      "elab_tipo_rend_isento": { "codigo": "4" },
-      "cpf_cnpj": "60746948000112",
-      "nome": "CEF FUNDO DE GARANTIA DO TEMPO DE SERVICO",
-      "valor": "5000.00"
-    },
-    {
-      "tipo_beneficiario_id": 1,
-      "elab_tipo_rend_isento": { "codigo": "12" },
-      "cpf_cnpj": "00000000000191",
-      "nome": "EMPRESA EXEMPLO LTDA",
-      "valor": "3500.00"
-    }
-  ],
-  "elab_rend_pj": [
-    {
-      "cpf_cnpj": "00000000000191",
-      "nome": "EMPRESA EXEMPLO LTDA",
-      "rendimento": "60000.00",
-      "contribuicao": "7200.00",
-      "decimo_terceiro": "5000.00",
-      "imposto": "8500.00",
-      "imposto_decimo_terceiro": "500.00"
-    }
-  ],
+  "elab_rend_exclusivas": [],
+  "elab_rend_isentos": [],
+  "elab_rend_pj": [],
   "elab_dependentes": [
     {
-      "parentesco_id": 2,
-      "nome": "MARIA SILVA MONTANO",
-      "dt_nascimento": "2010-03-15",
-      "cpf": null,
-      "mora_titular": true,
+      "id": 63,
+      "elab_declaracao_id": 217,
+      "parentesco_id": 3,
+      "cpf": "13480293077",
+      "dt_nascimento": "2021-03-15",
+      "nome": "RYAN SILVA MONTANO",
+      "ddd": "",
+      "telefone": "",
       "email": "",
-      "ddd": "24",
-      "telefone": ""
+      "mora_titular": false,
+      "created": "2026-04-16T14:44:57-03:00",
+      "modified": "2026-04-16T14:44:57-03:00",
+      "grau_parentesco": {
+        "id": 3,
+        "pai_id": 1,
+        "usuario_id": 1,
+        "nome": "Filho(a) ou enteado(a) até 21 (vinte e um) anos.",
+        "descricao": "21",
+        "ordem": 2,
+        "ativo": true,
+        "created": "2024-10-29T18:49:47-03:00",
+        "modified": "2024-10-29T18:49:47-03:00",
+        "nome_en": "Child or stepchild, up to 21 years old; or of any age if physically or mentally incapacitated for work."
+      }
+    },
+    {
+      "id": 64,
+      "elab_declaracao_id": 217,
+      "parentesco_id": 3,
+      "cpf": null,
+      "dt_nascimento": "2023-02-05",
+      "nome": "FILHO TESTE 2",
+      "ddd": "",
+      "telefone": "",
+      "email": "",
+      "mora_titular": false,
+      "created": "2026-04-16T14:51:28-03:00",
+      "modified": "2026-04-16T14:51:28-03:00",
+      "grau_parentesco": {
+        "id": 3,
+        "pai_id": 1,
+        "usuario_id": 1,
+        "nome": "Filho(a) ou enteado(a) até 21 (vinte e um) anos.",
+        "descricao": "21",
+        "ordem": 2,
+        "ativo": true,
+        "created": "2024-10-29T18:49:47-03:00",
+        "modified": "2024-10-29T18:49:47-03:00",
+        "nome_en": "Child or stepchild, up to 21 years old; or of any age if physically or mentally incapacitated for work."
+      }
     }
   ],
   "elab_info_pessoai": {
-    "id": 34,
-    "elab_declaracao_id": 30,
+    "id": 260,
+    "elab_declaracao_id": 217,
     "houve_alteracao": false,
     "dt_nascimento": "2000-10-10",
     "deficiente": false,
     "ddd": "24",
-    "telefone": "2242-9249",
-    "email": "pereirapthiago@gmail.com",
+    "telefone": "2242-9249 ",
+    "email": "JORGEMONTANO@GMAIL.COM",
     "residente_exterior": false,
     "dt_retorno": null,
-    "possui_conjuge": false,
-    "cpf_conjuge": null,
+    "possui_conjuge": true,
+    "cpf_conjuge": "64334654045",
     "natureza_ocupacao": 1,
     "ocupacao_principal": 1,
-    "created": "2026-04-16T09:59:22-03:00",
-    "modified": "2026-04-16T09:59:22-03:00",
+    "created": "2026-04-16T14:25:42-03:00",
+    "modified": "2026-04-16T15:23:30-03:00",
     "elab_naturezas_ocupacao": {
       "id": 1,
       "codigo": "01",
-      "descricao": "Empregado de empresa do setor privado, exceto de instituicoes financeiras",
-      "descricao_resumida": "Empregado setor privado, exceto de inst. financeiras"
+      "descricao": "Empregado de empresa do setor privado, exceto de instituições financeiras",
+      "descricao_resumida": "Empregado setor privado, exceto de inst. financeiras",
+      "crc": null,
+      "vigencia": null,
+      "created": "2025-10-30T12:18:30-03:00",
+      "modified": "2025-10-30T12:18:30-03:00"
     },
     "elab_ocupacoes_principai": {
       "id": 1,
       "codigo": "000",
-      "descricao": "Outras ocupacoes nao especificadas anteriormente",
-      "descricao_resumida": "Outras ocupacoes"
+      "descricao": "Outras ocupações não especificadas anteriormente",
+      "descricao_resumida": "Outras ocupações",
+      "grupo_prefixo": null,
+      "crc": null,
+      "vigencia": null,
+      "created": "2025-10-30T12:18:29-03:00",
+      "modified": "2025-10-30T12:18:29-03:00"
     }
   },
   "elab_endereco": {
-    "id": 24,
-    "elab_declaracao_id": 30,
+    "id": 244,
+    "elab_declaracao_id": 217,
     "endereco": "AV KOELER",
     "numero": "260",
     "bairro": "CENTRO",
     "cidade": "PETROPOLIS",
     "uf": "RJ",
     "cep": "25845060",
-    "complemento": "Casa",
-    "created": "2026-04-16T09:59:22-03:00",
-    "modified": "2026-04-16T09:59:22-03:00"
+    "complemento": "CASA",
+    "created": "2026-04-16T14:25:42-03:00",
+    "modified": "2026-04-16T14:25:42-03:00"
   },
   "elab_saida": null,
   "pessoa": {
-    "id": 644,
+    "id": 659,
     "usuario_id": 1,
     "pais_origem_id": null,
     "primeiro_nome": "JORGE LUCAS",
@@ -225,9 +208,9 @@
     "email": null,
     "gross_up": false,
     "estado": "RJ",
-    "cidade": "Niteroi",
-    "created": "2026-04-16T09:35:25-03:00",
-    "modified": "2026-04-16T09:35:25-03:00",
+    "cidade": "Niterói",
+    "created": "2026-04-16T14:21:32-03:00",
+    "modified": "2026-04-16T14:21:32-03:00",
     "declaracao_permitido": false
   }
 }
