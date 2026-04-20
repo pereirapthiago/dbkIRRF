@@ -55,7 +55,7 @@ final class GeradorDadosPessoais extends GeradorRegistroBase
                 : $this->espacos($l->campo('dddFixo')->tamanho),
             'dataNascimento' => $this->data($r->dataNascimento),
             'flagPos381' => $r->flagPos381,
-            'codigoOcupacao' => $r->codigoOcupacao !== '000' && $r->codigoOcupacao !== ''
+            'codigoOcupacao' => $r->codigoOcupacao !== ''
                 ? $this->numero($r->codigoOcupacao, $l->campo('codigoOcupacao')->tamanho)
                 : $this->espacos($l->campo('codigoOcupacao')->tamanho),
             'naturezaOcupacao' => $r->naturezaOcupacao,
