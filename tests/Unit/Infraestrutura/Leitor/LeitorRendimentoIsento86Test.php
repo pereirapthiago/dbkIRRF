@@ -7,7 +7,6 @@ namespace DbkIrrf\Tests\Unit\Infraestrutura\Leitor;
 use DbkIrrf\Dominio\DTO\RegistroRendimentoIsento86DTO;
 use DbkIrrf\Dominio\Enum\TipoBeneficiario;
 use DbkIrrf\Dominio\Enum\TipoRegistro;
-use DbkIrrf\Dominio\ValorObjeto\Cnpj;
 use DbkIrrf\Dominio\ValorObjeto\Cpf;
 use DbkIrrf\Dominio\ValorObjeto\ValorMonetario;
 use DbkIrrf\Infraestrutura\Gerador\GeradorRendimentoIsento86;
@@ -32,7 +31,7 @@ final class LeitorRendimentoIsento86Test extends TestCase
             tipoBeneficiario: TipoBeneficiario::TITULAR,
             cpfBeneficiario: new Cpf('41653508000'),
             codigoTipoRendimento: '0026',
-            cnpjFontePagadora: new Cnpj('40278681000179'),
+            cnpjFontePagadora: '40278681000179',
             nomeFontePagadora: 'TRANSOCEAN BRASIL LTDA',
             valorRendimentoIsento: new ValorMonetario(583523),
             descricaoLivre: 'RENDIMENTO ISENTO DE ALUGUEL NO EXTERIOR.',
@@ -48,7 +47,7 @@ final class LeitorRendimentoIsento86Test extends TestCase
         $this->assertSame(TipoBeneficiario::TITULAR, $lido->tipoBeneficiario);
         $this->assertSame('41653508000', $lido->cpfBeneficiario->valor);
         $this->assertSame('0026', $lido->codigoTipoRendimento);
-        $this->assertSame('40278681000179', $lido->cnpjFontePagadora->valor);
+        $this->assertSame('40278681000179', $lido->cnpjFontePagadora);
         $this->assertSame('TRANSOCEAN BRASIL LTDA', $lido->nomeFontePagadora);
         $this->assertSame(583523, $lido->valorRendimentoIsento->centavos);
         $this->assertSame('RENDIMENTO ISENTO DE ALUGUEL NO EXTERIOR.', $lido->descricaoLivre);

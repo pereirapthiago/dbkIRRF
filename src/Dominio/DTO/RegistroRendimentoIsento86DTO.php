@@ -9,7 +9,6 @@ use DbkIrrf\Dominio\Enum\TipoBeneficiario;
 use DbkIrrf\Dominio\Enum\TipoCampo;
 use DbkIrrf\Dominio\Enum\TipoRegistro;
 use DbkIrrf\Dominio\ValorObjeto\Checksum;
-use DbkIrrf\Dominio\ValorObjeto\Cnpj;
 use DbkIrrf\Dominio\ValorObjeto\Cpf;
 use DbkIrrf\Dominio\ValorObjeto\ValorMonetario;
 
@@ -25,7 +24,7 @@ final readonly class RegistroRendimentoIsento86DTO implements RegistroInterface
         public TipoBeneficiario $tipoBeneficiario = TipoBeneficiario::TITULAR,
         public Cpf $cpfBeneficiario = new Cpf('00000000000'),
         public string $codigoTipoRendimento = '0026',
-        public Cnpj $cnpjFontePagadora = new Cnpj('00000000000000'),
+        public string $cnpjFontePagadora = '',
         public string $nomeFontePagadora = '',
         public ValorMonetario $valorRendimentoIsento = new ValorMonetario(0),
         public string $descricaoLivre = '',
@@ -46,7 +45,7 @@ final readonly class RegistroRendimentoIsento86DTO implements RegistroInterface
             new CampoDTO('tipoBeneficiario', 14, 1, TipoCampo::ALFA, descricao: 'T=titular, D=dependente'),
             new CampoDTO('cpfBeneficiario', 15, 11, TipoCampo::NUMERICO),
             new CampoDTO('codigoTipoRendimento', 26, 4, TipoCampo::NUMERICO, descricao: 'Codigo tipo rendimento (0026=Outros)'),
-            new CampoDTO('cnpjFontePagadora', 30, 14, TipoCampo::NUMERICO),
+            new CampoDTO('cnpjFontePagadora', 30, 14, TipoCampo::ALFA),
             new CampoDTO('nomeFontePagadora', 44, 60, TipoCampo::ALFA),
             new CampoDTO('valorRendimentoIsento', 104, 13, TipoCampo::NUMERICO, descricao: 'Valor rendimento isento (centavos)'),
             new CampoDTO('descricaoLivre', 117, 60, TipoCampo::ALFA, descricao: 'Descricao livre obrigatoria para cod 26'),

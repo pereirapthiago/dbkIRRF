@@ -224,7 +224,7 @@ final class GeradorComplementaresTest extends TestCase
             tipoBeneficiario: TipoBeneficiario::TITULAR,
             cpfBeneficiario: new Cpf('41653508000'),
             codigoTipoRendimento: '0001',
-            cnpjFontePagadora: new Cnpj('27865757000102'),
+            cnpjFontePagadora: '27865757000102',
             nomeFontePagadora: 'GLOBO COMUNICACAO E PARTICIPACOES S/A',
             valorRendimentoIsento: ValorMonetario::deCentavos(500000),
         );

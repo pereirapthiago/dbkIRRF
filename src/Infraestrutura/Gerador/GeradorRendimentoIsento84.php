@@ -30,7 +30,7 @@ final class GeradorRendimentoIsento84 extends GeradorRegistroBase
             'tipoBeneficiario' => $r->tipoBeneficiario->value,
             'cpfBeneficiario' => $r->cpfBeneficiario->valor,
             'codigoTipoRendimento' => $this->numero($r->codigoTipoRendimento, $l->campo('codigoTipoRendimento')->tamanho),
-            'cnpjFontePagadora' => $r->cnpjFontePagadora->valor,
+            'cnpjFontePagadora' => $this->texto($r->cnpjFontePagadora, $l->campo('cnpjFontePagadora')->tamanho),
             'nomeFontePagadora' => $this->texto($r->nomeFontePagadora, $l->campo('nomeFontePagadora')->tamanho),
             'valorRendimentoIsento' => $this->monetario($r->valorRendimentoIsento, $l->campo('valorRendimentoIsento')->tamanho),
             'valorAdicional' => $this->monetario($r->valorAdicional, $l->campo('valorAdicional')->tamanho),

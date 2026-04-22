@@ -9,7 +9,6 @@ use DbkIrrf\Dominio\DTO\RegistroRendimentoIsento84DTO;
 use DbkIrrf\Dominio\Enum\TipoBeneficiario;
 use DbkIrrf\Dominio\Enum\TipoRegistro;
 use DbkIrrf\Dominio\ValorObjeto\Checksum;
-use DbkIrrf\Dominio\ValorObjeto\Cnpj;
 use DbkIrrf\Dominio\ValorObjeto\Cpf;
 use DbkIrrf\Dominio\ValorObjeto\ValorMonetario;
 
@@ -29,7 +28,7 @@ final class LeitorRendimentoIsento84 extends LeitorRegistroBase
             tipoBeneficiario: TipoBeneficiario::from($l->extrair($linha, 'tipoBeneficiario')),
             cpfBeneficiario: new Cpf($l->extrair($linha, 'cpfBeneficiario')),
             codigoTipoRendimento: $l->extrair($linha, 'codigoTipoRendimento'),
-            cnpjFontePagadora: new Cnpj($l->extrair($linha, 'cnpjFontePagadora')),
+            cnpjFontePagadora: $l->extrair($linha, 'cnpjFontePagadora'),
             nomeFontePagadora: $l->extrairTexto($linha, 'nomeFontePagadora'),
             valorRendimentoIsento: ValorMonetario::deString($l->extrair($linha, 'valorRendimentoIsento')),
             valorAdicional: ValorMonetario::deString($l->extrair($linha, 'valorAdicional')),
