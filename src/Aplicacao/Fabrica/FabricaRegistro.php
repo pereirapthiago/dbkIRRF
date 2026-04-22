@@ -30,6 +30,7 @@ final class FabricaRegistro
             TipoRegistro::RRA => new Gerador\GeradorRra(),
             TipoRegistro::EXIGIBILIDADE_SUSPENSA => new Gerador\GeradorExigibilidadeSuspensa(),
             TipoRegistro::RENDIMENTO_ISENTO => new Gerador\GeradorRendimentoIsento84(),
+            TipoRegistro::RENDIMENTO_ISENTO_OUTROS => new Gerador\GeradorRendimentoIsento86(),
             TipoRegistro::TRIBUTACAO_EXCLUSIVA => new Gerador\GeradorTribExclusiva(),
             TipoRegistro::TRAILER => new Gerador\GeradorTrailer(),
         };
@@ -53,6 +54,7 @@ final class FabricaRegistro
             TipoRegistro::RRA => new Leitor\LeitorRra(),
             TipoRegistro::EXIGIBILIDADE_SUSPENSA => new Leitor\LeitorExigibilidadeSuspensa(),
             TipoRegistro::RENDIMENTO_ISENTO => new Leitor\LeitorRendimentoIsento84(),
+            TipoRegistro::RENDIMENTO_ISENTO_OUTROS => new Leitor\LeitorRendimentoIsento86(),
             TipoRegistro::TRIBUTACAO_EXCLUSIVA => new Leitor\LeitorTribExclusiva(),
             TipoRegistro::TRAILER => new Leitor\LeitorTrailer(),
         };

@@ -97,6 +97,11 @@ final class GeradorDbk
             $linhas[] = $this->gerarLinha($dto);
         }
 
+        // Rendimentos Isentos Outros / cod 26 (Reg 86)
+        foreach ($declaracao->obterRendimentosIsentos86() as $dto) {
+            $linhas[] = $this->gerarLinha($dto);
+        }
+
         // Trib Exclusiva (Reg 88)
         foreach ($declaracao->obterTribExclusivas() as $dto) {
             $linhas[] = $this->gerarLinha($dto);

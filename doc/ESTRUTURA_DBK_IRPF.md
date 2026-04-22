@@ -28,7 +28,8 @@
 | 27   | Bens e direitos                    | 1   | 1251            |
 | 28   | Dividas e onus reais               | 1   | 576             |
 | 45   | Rendimentos isentos (PJ)           | 1   | 216             |
-| 84   | Carnê-leão / imposto complementar  | 1   | 144             |
+| 84   | Rendimentos isentos e nao tributaveis | 1+  | 144             |
+| 86   | Rendimentos isentos - Outros (cod 26, com descricao) | 1+ | 191 |
 | 39   | Declaracao de saida definitiva     | 0-1 | 193             |
 | 88   | Imposto pago código DARF           | 1   | 131             |
 | T9   | Trailer / Totalizador              | 1   | 449             |
@@ -620,6 +621,44 @@ Print confirmou: "Editar: Rendimento Isento e Nao Tributavel", tipo 01 (Bolsas d
 
 ---
 
+## REGISTRO 86 - Rendimentos Isentos e Nao Tributaveis (Outros / cod 26) - 191 caracteres
+
+**Identificado via leitura direta do arquivo BASE.**
+Variante do Registro 84 exclusiva para o codigo 26 ("Outros"). A diferenca estrutural
+e a inclusao de um campo de descricao livre (60 chars) a partir da posicao 117, que
+desloca o bloco final e aumenta o tamanho total de 144 para 191 caracteres.
+
+| Pos Ini | Pos Fim | Tam | Tipo | Campo                           | Valor BASE                                         | Confianca |
+|---------|---------|-----|------|---------------------------------|----------------------------------------------------|-----------|
+| 1       | 2       | 2   | Num  | Tipo registro                   | "86"                                               | ALTA      |
+| 3       | 13      | 11  | Num  | CPF contribuinte                | "41653508000"                                      | ALTA      |
+| 14      | 14      | 1   | Alfa | Tipo beneficiario (T=titular)   | "T"                                               | ALTA      |
+| 15      | 25      | 11  | Num  | CPF beneficiario                | "41653508000"                                      | ALTA      |
+| 26      | 29      | 4   | Num  | Codigo tipo rendimento          | "0026" (26=Outros — fixo neste registro)           | ALTA      |
+| 30      | 43      | 14  | Num  | CNPJ fonte pagadora             | "40278681000179"                                   | ALTA      |
+| 44      | 103     | 60  | Alfa | Nome fonte pagadora             | "TRANSOCEAN BRASIL LTDA"                           | ALTA      |
+| 104     | 116     | 13  | Num  | **Valor rendimento isento (c)** | "0000000583523" = R$ 5.835,23                      | ALTA      |
+| 117     | 176     | 60  | Alfa | **Descricao livre**             | "RENDIMENTO ISENTO DE ALUGUEL NO EXTERIOR."        | ALTA      |
+| 177     | 181     | 5   | Num  | Reservado/zeros                 | "00000"                                            | MEDIA     |
+| 182     | 191     | 10  | Num  | **Checksum**                    | "1008139251"                                       | ALTA      |
+
+**Comparacao estrutural Reg84 vs Reg86:**
+
+| Campo          | Reg 84 (pos) | Reg 86 (pos) |
+|----------------|--------------|--------------|
+| Tipo...Valor   | 1-116        | 1-116        |
+| Descricao livre| —            | 117-176 (+60)|
+| Zeros          | 117-121      | 177-181      |
+| Val adicional  | 122-134      | —            |
+| Checksum       | 135-144      | 182-191      |
+| **Tamanho**    | **144**      | **191**      |
+
+**Regra de uso**: O IRPF gera Registro 86 (em vez de 84) quando o usuario seleciona
+o codigo 26 ("Outros") na tela de Rendimentos Isentos, pois esse codigo exige
+preenchimento obrigatorio da descricao textual.
+
+---
+
 ## REGISTRO 88 - Rendimentos Sujeitos a Tributacao Exclusiva/Definitiva - 131 caracteres
 
 **RECLASSIFICADO via variacao 03/04**: Este registro armazena rendimentos sujeitos a tributacao
@@ -768,7 +807,8 @@ analise inicial. Isso deslocava todas as posicoes subsequentes em +2.
 | 27       | **~85%**            | **ALTA**        | **Posicoes corrigidas, campos endereco confirmados (var05)** |
 | 28       | ~60%                | MEDIA           | SIM                |
 | 45       | **~80%**            | **ALTA**        | **Mapeado via var03/05: totais por fonte + metadados RRA** |
-| 84       | **~90%**            | **ALTA**        | **Reclassificado: Rend Isentos (confirmado var03/03)** |
+| 84       | **~90%**            | **ALTA**        | **Rend Isentos e Nao Tributaveis (confirmado var03/03)** |
+| 86       | **~95%**            | **ALTA**        | **Novo: Rend Isentos cod 26 "Outros" — descricao livre pos 117-176 (mapeado via BASE)** |
 | 39       | **100%**            | **ALTA**        | **COMPLETO** (mapeado via var12_saida) |
 | 88       | **~90%**            | **ALTA**        | **Reclassificado: Trib Exclusiva (confirmado var03/04)** |
 | T9       | ~50%                | MEDIA           | SIM                |

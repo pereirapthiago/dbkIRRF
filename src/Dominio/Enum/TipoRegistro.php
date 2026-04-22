@@ -21,6 +21,7 @@ enum TipoRegistro: string
     case RRA = '45';
     case EXIGIBILIDADE_SUSPENSA = '80';
     case RENDIMENTO_ISENTO = '84';
+    case RENDIMENTO_ISENTO_OUTROS = '86';
     case TRIBUTACAO_EXCLUSIVA = '88';
     case TRAILER = 'T9';
 
@@ -42,6 +43,7 @@ enum TipoRegistro: string
             self::RRA => 'Rendimentos Recebidos Acumuladamente (RRA)',
             self::EXIGIBILIDADE_SUSPENSA => 'Rendimento com exigibilidade suspensa',
             self::RENDIMENTO_ISENTO => 'Rendimentos isentos e nao tributaveis',
+            self::RENDIMENTO_ISENTO_OUTROS => 'Rendimentos isentos e nao tributaveis - Outros (cod 26)',
             self::TRIBUTACAO_EXCLUSIVA => 'Rendimentos sujeitos a tributacao exclusiva/definitiva',
             self::TRAILER => 'Trailer / Totalizador',
         };
@@ -65,6 +67,7 @@ enum TipoRegistro: string
             self::RRA => 216,
             self::EXIGIBILIDADE_SUSPENSA => 123,
             self::RENDIMENTO_ISENTO => 144,
+            self::RENDIMENTO_ISENTO_OUTROS => 191,
             self::TRIBUTACAO_EXCLUSIVA => 131,
             self::TRAILER => 449,
         };

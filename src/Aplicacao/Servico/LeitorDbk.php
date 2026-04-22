@@ -17,6 +17,7 @@ use DbkIrrf\Dominio\DTO\RegistroInvestExteriorDTO;
 use DbkIrrf\Dominio\DTO\RegistroPagamentoDTO;
 use DbkIrrf\Dominio\DTO\RegistroExigibilidadeSuspensaDTO;
 use DbkIrrf\Dominio\DTO\RegistroRendimentoIsento84DTO;
+use DbkIrrf\Dominio\DTO\RegistroRendimentoIsento86DTO;
 use DbkIrrf\Dominio\DTO\RegistroRraDTO;
 use DbkIrrf\Dominio\DTO\RegistroRendimentosMensaisDTO;
 use DbkIrrf\Dominio\DTO\RegistroRendimentosPJDTO;
@@ -71,6 +72,7 @@ final class LeitorDbk
                 TipoRegistro::RRA => $declaracao->adicionarRra($this->como($registro, RegistroRraDTO::class)),
                 TipoRegistro::EXIGIBILIDADE_SUSPENSA => $declaracao->adicionarExigibilidadeSuspensa($this->como($registro, RegistroExigibilidadeSuspensaDTO::class)),
                 TipoRegistro::RENDIMENTO_ISENTO => $declaracao->adicionarRendimentoIsento84($this->como($registro, RegistroRendimentoIsento84DTO::class)),
+                TipoRegistro::RENDIMENTO_ISENTO_OUTROS => $declaracao->adicionarRendimentoIsento86($this->como($registro, RegistroRendimentoIsento86DTO::class)),
                 TipoRegistro::TRIBUTACAO_EXCLUSIVA => $declaracao->adicionarTribExclusiva($this->como($registro, RegistroTribExclusivaDTO::class)),
                 TipoRegistro::TRAILER => $declaracao->trailer = $this->como($registro, RegistroTrailerDTO::class),
             };

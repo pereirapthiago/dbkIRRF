@@ -40,6 +40,8 @@ final class DeclaracaoDTO
     private array $rras = [];
     /** @var list<RegistroRendimentoIsento84DTO> */
     private array $rendimentosIsentos84 = [];
+    /** @var list<RegistroRendimentoIsento86DTO> */
+    private array $rendimentosIsentos86 = [];
     /** @var list<RegistroExigibilidadeSuspensaDTO> */
     private array $exigibilidadesSuspensas = [];
     /** @var list<RegistroTribExclusivaDTO> */
@@ -178,6 +180,19 @@ final class DeclaracaoDTO
     public function obterRendimentosIsentos84(): array
     {
         return $this->rendimentosIsentos84;
+    }
+
+    // === Rendimentos Isentos Outros (Reg 86) ===
+
+    public function adicionarRendimentoIsento86(RegistroRendimentoIsento86DTO $dto): void
+    {
+        $this->rendimentosIsentos86[] = $dto;
+    }
+
+    /** @return list<RegistroRendimentoIsento86DTO> */
+    public function obterRendimentosIsentos86(): array
+    {
+        return $this->rendimentosIsentos86;
     }
 
     // === Exigibilidade Suspensa (Reg 80) ===

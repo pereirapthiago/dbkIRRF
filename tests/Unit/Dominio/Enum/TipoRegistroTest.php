@@ -43,8 +43,8 @@ final class TipoRegistroTest extends TestCase
         $this->assertSame(TipoRegistro::TRAILER, TipoRegistro::identificarPorLinha('T941653508000...'));
     }
 
-    public function testDeveTer16TiposDeRegistro(): void
+    public function testDeveTer18TiposDeRegistro(): void
     {
-        $this->assertCount(17, TipoRegistro::cases());
+        $this->assertCount(18, TipoRegistro::cases());
     }
 }
