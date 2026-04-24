@@ -60,4 +60,22 @@ final class FormatadorTextoTest extends TestCase
 
         $this->assertStringStartsWith('COMUNICACAO', $resultado);
     }
+
+    public function testDeveSubstituirQuebrasDeLinhaPorEspaco(): void
+    {
+        $resultado = $this->formatador->formatar("RUA A\r\nAPT 10", 20);
+
+        $this->assertSame(20, strlen($resultado));
+        $this->assertStringStartsWith('RUA A  APT 10', $resultado);
+        $this->assertStringNotContainsString("\r", $resultado);
+        $this->assertStringNotContainsString("\n", $resultado);
+    }
+
+    public function testDeveSubstituirTabulacaoEOutrosControlesPorEspaco(): void
+    {
+        $resultado = $this->formatador->formatar("NOME\tSOBRENOME", 20);
+
+        $this->assertStringStartsWith('NOME SOBRENOME', $resultado);
+        $this->assertStringNotContainsString("\t", $resultado);
+    }
 }

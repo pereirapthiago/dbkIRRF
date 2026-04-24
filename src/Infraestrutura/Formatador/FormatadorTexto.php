@@ -25,10 +25,16 @@ final class FormatadorTexto implements FormatadorCampoInterface
 
     public function formatar(string $valor, int $tamanho): string
     {
+        $valor = self::sanitizar($valor);
         $valor = strtr($valor, self::MAPA_ACENTOS);
         $valor = mb_strtoupper($valor, 'UTF-8');
         $valor = str_pad($valor, $tamanho, ' ', STR_PAD_RIGHT);
 
         return substr($valor, 0, $tamanho);
+    }
+
+    private static function sanitizar(string $valor): string
+    {
+        return preg_replace('/[\x00-\x1F\x7F]/u', ' ', $valor) ?? $valor;
     }
 }
