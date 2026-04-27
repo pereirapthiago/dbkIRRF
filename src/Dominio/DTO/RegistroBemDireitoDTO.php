@@ -87,6 +87,14 @@ final readonly class RegistroBemDireitoDTO implements RegistroInterface
         // Campos adicionais (posicoes 1238-1241, conteudo desconhecido)
         public string $camposAdicionaisRaw5b = '',
 
+        // Dados bancarios especificos — Grupo 06 (Depositos a vista e numerario)
+        public string $agencia06 = '0000',            // pos 1023-1026
+        public string $dvConta06 = ' ',               // pos 1040 (padding pos-agencia tem 13 chars: 1027-1039)
+        public string $cnpjBanco06 = '',              // pos 1042-1055
+        public string $codBacen06 = '000',            // pos 1086-1088
+        public string $cpfTitular06 = '00000000000',  // pos 1090-1100
+        public string $numeroConta06 = '',            // pos 1104-1112
+
         public Checksum $checksum = new Checksum('0000000000'),
     ) {
     }
@@ -139,6 +147,19 @@ final readonly class RegistroBemDireitoDTO implements RegistroInterface
             new CampoDTO('lucrosDivValorRecebido', 1212, 13, TipoCampo::NUMERICO, descricao: 'Lucros e Div.: Valor recebido (centavos)'),
             new CampoDTO('lucrosDivImpostoPago', 1225, 13, TipoCampo::NUMERICO, descricao: 'Lucros e Div.: Imposto pago Exterior/IRRF Brasil (centavos)'),
             new CampoDTO('camposAdicionaisRaw5b', 1238, 4, TipoCampo::ALFA, obrigatorio: false, descricao: 'Posicoes 1238-1241 — conteudo desconhecido'),
+
+            // Campos condicionais — Grupo 06 (Depositos a vista e numerario)
+            // Sobrepoem posicoes de outros campos; so sao gravados/lidos quando codigoGrupo = '06'
+            // Padding pos-agencia tem 13 chars (1027-1039), deslocando DV e subsequentes em +1
+            new CampoDTO('agencia06', 1023, 4, TipoCampo::NUMERICO, obrigatorio: false, descricao: '[grupo 06] Agencia bancaria (sobrepoe final de camposAdicionaisRaw3)'),
+            new CampoDTO('dvConta06', 1040, 1, TipoCampo::ALFANUMERICO, obrigatorio: false, descricao: '[grupo 06] DV conta (pos 1040)'),
+            new CampoDTO('separador06', 1041, 1, TipoCampo::ALFA, obrigatorio: false, descricao: '[grupo 06] Separador espaco entre DV e CNPJ (pos 1041)'),
+            new CampoDTO('cnpjBanco06', 1042, 14, TipoCampo::NUMERICO, obrigatorio: false, descricao: '[grupo 06] CNPJ instituicao financeira (pos 1042-1055)'),
+            new CampoDTO('codBacen06', 1086, 3, TipoCampo::NUMERICO, obrigatorio: false, descricao: '[grupo 06] Codigo BACEN banco (pos 1086-1088)'),
+            new CampoDTO('separadorT06', 1089, 1, TipoCampo::ALFA, obrigatorio: false, descricao: '[grupo 06] Separador "T" (pos 1089)'),
+            new CampoDTO('cpfTitular06', 1090, 11, TipoCampo::NUMERICO, obrigatorio: false, descricao: '[grupo 06] CPF titular referencia (pos 1090-1100)'),
+            new CampoDTO('numeroConta06', 1104, 9, TipoCampo::ALFANUMERICO, obrigatorio: false, descricao: '[grupo 06] Numero da conta bancaria (dentro de camposAdicionaisRaw5a)'),
+
             new CampoDTO('checksum', 1242, 10, TipoCampo::NUMERICO),
         );
     }

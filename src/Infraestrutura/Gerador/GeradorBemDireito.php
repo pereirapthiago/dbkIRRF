@@ -62,10 +62,22 @@ final class GeradorBemDireito extends GeradorRegistroBase
             'camposAdicionaisRaw5b' => $this->rawOuEspacos($r->camposAdicionaisRaw5b, $l->campo('camposAdicionaisRaw5b')->tamanho),
         ];
 
-        // Posicoes 1039-1055: layout condicional por grupo/codigo
-        // Grupo 07 / cod 99 usa aplicFinancImpExterior (pos 1039-1051)
-        // Demais grupos usam cnpj (pos 1042-1055)
-        if ($r->codigoGrupo === '07' && $r->codigoItem === '99') {
+        // Posicoes 1023-1112: layout condicional por grupo
+        // Grupo 06 (Depositos a vista): agencia/DV/CNPJ/BACEN/CPF/conta em posicoes especificas
+        // Grupo 07 / cod 99 (Fundos exterior): usa aplicFinancImpExterior (pos 1039-1051)
+        // Demais grupos: usa cnpj (pos 1042-1055)
+        if ($r->codigoGrupo === '06') {
+            $valores['agencia06'] = $this->numero($r->agencia06, $l->campo('agencia06')->tamanho);
+            $valores['dvConta06'] = $r->dvConta06;
+            $valores['separador06'] = ' ';
+            $valores['cnpjBanco06'] = $r->cnpjBanco06 === ''
+                ? str_repeat('0', $l->campo('cnpjBanco06')->tamanho)
+                : $this->numero($r->cnpjBanco06, $l->campo('cnpjBanco06')->tamanho);
+            $valores['codBacen06'] = $this->numero($r->codBacen06, $l->campo('codBacen06')->tamanho);
+            $valores['separadorT06'] = 'T';
+            $valores['cpfTitular06'] = $this->numero($r->cpfTitular06, $l->campo('cpfTitular06')->tamanho);
+            $valores['numeroConta06'] = $this->texto($r->numeroConta06, $l->campo('numeroConta06')->tamanho);
+        } elseif ($r->codigoGrupo === '07' && $r->codigoItem === '99') {
             $valores['aplicFinancImpExterior'] = $this->monetario($r->aplicFinancImpExterior, $l->campo('aplicFinancImpExterior')->tamanho);
         } else {
             $valores['cnpj'] = $r->cnpj === ''

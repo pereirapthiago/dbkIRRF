@@ -28,8 +28,7 @@
 | 27   | Bens e direitos                    | 1   | 1251            |
 | 28   | Dividas e onus reais               | 1   | 576             |
 | 45   | Rendimentos isentos (PJ)           | 1   | 216             |
-| 84   | Rendimentos isentos e nao tributaveis | 1+  | 144             |
-| 86   | Rendimentos isentos - Outros (cod 26, com descricao) | 1+ | 191 |
+| 84   | Carnê-leão / imposto complementar  | 1   | 144             |
 | 39   | Declaracao de saida definitiva     | 0-1 | 193             |
 | 88   | Imposto pago código DARF           | 1   | 131             |
 | T9   | Trailer / Totalizador              | 1   | 449             |
@@ -502,9 +501,9 @@ Campo "mora com titular" (pos 112) estava AUSENTE na documentacao anterior.
 | 695     | 698     | 4   | Num    | Cod municipio IBGE          | "5877"                          | ALTA      |
 | 699     | 738     | 40  | Alfa   | Municipio                   | "PETROPOLIS"                    | ALTA      |
 | 739     | 862     | 124 | Alfa   | Campos adicionais           | (diversos — campos bancarios e financeiros) | BAIXA |
-| 863     | 866     | 4   | Num    | Agencia                     | "8452"                          | ALTA      |
+| 863     | 866     | 4   | Num    | Agencia (CONFLITO*)         | "8452" — CONFLITO: var05_contacorrente indica agencia em 1023-1026 | MEDIA |
 | 867     | 879     | 13  | Alfa   | Reservado/espacos           | (espacos)                       | BAIXA     |
-| 880     | 880     | 1   | Num    | Digito verificador          | "8"                             | ALTA      |
+| 880     | 880     | 1   | Num    | Digito verificador (CONFLITO*)| "8" — CONFLITO: var05_contacorrente indica DV em 1040 | MEDIA |
 | 881     | 891     | 11  | Alfa   | Reservado                   | (espacos)                       | BAIXA     |
 | 892     | 895     | 4   | Num    | Reservado                   | "0000" (constante)              | BAIXA     |
 | 896     | 896     | 1   | Num    | Desconhecido                | "1" (imovel c/data), "5" (sem data?) | BAIXA |
@@ -512,14 +511,28 @@ Campo "mora com titular" (pos 112) estava AUSENTE na documentacao anterior.
 | 905     | 932     | 28  | Alfa   | Reservado                   | (espacos)                       | BAIXA     |
 | 933     | 943     | 11  | Num    | RENAVAM (cond. grupo02/c01) | "12354654564" em veiculo; vazio nos demais | ALTA  |
 | 944     | 956     | 13  | Alfnum | Numero da conta             | "2222333333444"                 | ALTA      |
-| 957     | 1025    | 69  | Alfa   | Campos adicionais           | (espacos + dados esparsos)      | BAIXA     |
-| 1026    | 1038    | 13  | Num    | Aplic Fin. Renda ou Perda   | "0000008888800"                 | ALTA      |
-| 1039    | 1051    | 13  | Num    | Aplic Fin. Imposto pago Ext | "0000009999900"                 | ALTA      |
-| 1052    | 1100    | 49  | Alfa   | Campos adicionais / padding | (zeros e espacos)               | BAIXA     |
-| 1101    | 1102    | 2   | Num    | **Codigo grupo**            | "01"=Imoveis, "02"=Moveis, etc  | ALTA      |
+| 957     | 1022    | 66  | Alfa   | Campos adicionais           | (espacos + dados esparsos)      | BAIXA     |
+| 1023    | 1026    | 4   | Num    | Agencia (CONFLITO*)         | **[grupo 06]** "0001" — CONFLITO: campo anterior indica agencia em 863-866 | MEDIA |
+| 1027    | 1039    | 13  | Alfa   | Campos adicionais           | **[grupo 06]** (espacos/zeros entre agencia e DV) | BAIXA |
+| 1026    | 1038    | 13  | Num    | Aplic Fin. Renda ou Perda (CONFLITO*) | "0000008888800" — CONFLITO: grupo 06 usa faixa 1027-1101 para dados bancarios | MEDIA |
+| 1040    | 1040    | 1   | Num    | DV conta (CONFLITO*)        | **[grupo 06]** "2" — CONFLITO: campo anterior indica DV em 880 | ALTA |
+| 1039    | 1051    | 13  | Num    | Aplic Fin. Imposto pago Ext (CONFLITO*) | "0000009999900" — CONFLITO: grupo 06 usa pos 1040 para DV e 1042-1055 para CNPJ banco | MEDIA |
+| 1041    | 1041    | 1   | Alfa   | Separador                   | **[grupo 06]** " " (espaco entre DV e CNPJ) | BAIXA |
+| 1042    | 1055    | 14  | Num    | CNPJ instituicao financeira | **[grupo 06]** "29138344000143" (Nu Pagamentos S.A.) | ALTA |
+| 1056    | 1085    | 30  | Alfa   | Campos adicionais / padding | (espacos e zeros)               | BAIXA     |
+| 1086    | 1088    | 3   | Num    | Cod BACEN banco             | **[grupo 06]** "260" (Nu Pagamentos S.A.) | ALTA |
+| 1089    | 1089    | 1   | Alfa   | Separador                   | **[grupo 06]** "T"              | BAIXA     |
+| 1090    | 1100    | 11  | Num    | CPF titular (referencia)    | **[grupo 06]** "41653508000"    | ALTA      |
+| 1101    | 1102    | 2   | Num    | **Codigo grupo**            | "01"=Imoveis, "06"=Depositos a vista e numerario | ALTA |
 | 1103    | 1103    | 1   | Num    | Desconhecido                | "0" (constante?)                | BAIXA     |
-| 1104    | 1241    | 138 | Alfa   | Campos adicionais / padding | (espacos e zeros)               | BAIXA     |
+| 1104    | 1112    | 9   | Alfnum | **Numero da conta bancaria**| **[grupo 06]** "104911308"      | ALTA      |
+| 1113    | 1241    | 129 | Alfa   | Campos adicionais / padding | (espacos e zeros)               | BAIXA     |
 | 1242    | 1251    | 10  | Num    | **Checksum**                | BASE="0820608248"               | ALTA      |
+
+> **CONFLITO***: O registro 27 tem estrutura CONDICIONAL por tipo de bem. Os campos marcados
+> com **[grupo 06]** so aparecem quando codigo grupo (pos 1101-1102) = "06" (Depositos a vista
+> e numerario). Para outros grupos (imoveis, veiculos, aplicacoes financeiras etc.) as mesmas
+> posicoes contem campos diferentes. Investigar qual variacao mapeou agencia/DV em 863-866/880.
 
 **Evidencia - Variacao 05** (bens e direitos):
 - Cod item (14-15): 11→12 (Apartamento→Casa) ✓
@@ -529,10 +542,24 @@ Campo "mora com titular" (pos 112) estava AUSENTE na documentacao anterior.
 - Logradouro (558-597): "AV KOELER"→"AV KOELER 312" ✓
 - Val 31/12 anterior (532-544) e atual (545-557) NAO mudaram (R$100k e R$200k)
 - **CORRIGIDO**: pos 16 nao e subgrupo, e flag exterior; pos 17-19 e codigo pais completo (3 digitos)
-- Codigo grupo (1101-1102): BASE=01, TESTE=02, CASA=01 — matches grupos declarados ✓
+- Codigo grupo (1101-1102): BASE=01 (Imovel), CONTA CORRENTE=06, TESTE=02, CASA=01 ✓
 - Checksum corrigido para pos 1242-1251 (registro tem 1251 chars, nao 1091)
 - Data de aquisicao (897-904): DDMMYYYY. CASA="10102025"=10/10/2025 ✓; BASE="05062025"; TESTE="00000000" (sem data)
 - RENAVAM (933-943): "12354654564" no veiculo (grupo02/cod01); BASE e CASA vazios — campo condicional de veiculo ✓
+- **CONTA CORRENTE NA NU PAGAMENTOS S.A.** (grupo 06, cod item 01):
+  - Cod item (14-15): 01 (vs "11" do apartamento) ✓
+  - Agencia (1023-1026): "0001" ✓
+  - Padding agencia-DV (1027-1039): 13 chars ✓
+  - DV (1040): "2" ✓  **[CORRIGIDO: era 1039, estava errado]**
+  - Separador (1041): " " ✓
+  - CNPJ banco (1042-1055): "29138344000143" (Nu Pagamentos S.A.) ✓  **[CORRIGIDO: era 1041-1054]**
+  - Cod BACEN banco (1086-1088): "260" (Nu Pagamentos = banco 260) ✓  **[CORRIGIDO: era 1085-1087]**
+  - Separador T (1089): "T" ✓  **[CORRIGIDO: era 1088]**
+  - CPF titular referencia (1090-1100): "41653508000" ✓  **[CORRIGIDO: era 1089-1099]**
+  - Numero conta (1104-1112): "104911308" ✓
+  - Campos de endereco (558-738): todos espacos (nao se aplica a conta bancaria) ✓
+  - **ATENCAO**: Posicoes DV/CNPJ/BACEN/T/CPF foram corrigidas — estavam todas 1 posicao adiantadas.
+    Confirmado via comparacao direta com arquivo gerado pelo IRPF.
 
 ---
 
@@ -618,44 +645,6 @@ Print confirmou: "Editar: Rendimento Isento e Nao Tributavel", tipo 01 (Bolsas d
 - Reg 23 cod 0001 mudou junto: R$ 5.000 → R$ 8.000 (total por codigo)
 - Reg 20 blocos 36 e 45 (pos 469-481, 586-598): R$ 500 → R$ 800 (calculo derivado)
 - Registro 45 (rendimentos isentos PJ) NAO foi afetado
-
----
-
-## REGISTRO 86 - Rendimentos Isentos e Nao Tributaveis (Outros / cod 26) - 191 caracteres
-
-**Identificado via leitura direta do arquivo BASE.**
-Variante do Registro 84 exclusiva para o codigo 26 ("Outros"). A diferenca estrutural
-e a inclusao de um campo de descricao livre (60 chars) a partir da posicao 117, que
-desloca o bloco final e aumenta o tamanho total de 144 para 191 caracteres.
-
-| Pos Ini | Pos Fim | Tam | Tipo | Campo                           | Valor BASE                                         | Confianca |
-|---------|---------|-----|------|---------------------------------|----------------------------------------------------|-----------|
-| 1       | 2       | 2   | Num  | Tipo registro                   | "86"                                               | ALTA      |
-| 3       | 13      | 11  | Num  | CPF contribuinte                | "41653508000"                                      | ALTA      |
-| 14      | 14      | 1   | Alfa | Tipo beneficiario (T=titular)   | "T"                                               | ALTA      |
-| 15      | 25      | 11  | Num  | CPF beneficiario                | "41653508000"                                      | ALTA      |
-| 26      | 29      | 4   | Num  | Codigo tipo rendimento          | "0026" (26=Outros — fixo neste registro)           | ALTA      |
-| 30      | 43      | 14  | Num  | CNPJ fonte pagadora             | "40278681000179"                                   | ALTA      |
-| 44      | 103     | 60  | Alfa | Nome fonte pagadora             | "TRANSOCEAN BRASIL LTDA"                           | ALTA      |
-| 104     | 116     | 13  | Num  | **Valor rendimento isento (c)** | "0000000583523" = R$ 5.835,23                      | ALTA      |
-| 117     | 176     | 60  | Alfa | **Descricao livre**             | "RENDIMENTO ISENTO DE ALUGUEL NO EXTERIOR."        | ALTA      |
-| 177     | 181     | 5   | Num  | Reservado/zeros                 | "00000"                                            | MEDIA     |
-| 182     | 191     | 10  | Num  | **Checksum**                    | "1008139251"                                       | ALTA      |
-
-**Comparacao estrutural Reg84 vs Reg86:**
-
-| Campo          | Reg 84 (pos) | Reg 86 (pos) |
-|----------------|--------------|--------------|
-| Tipo...Valor   | 1-116        | 1-116        |
-| Descricao livre| —            | 117-176 (+60)|
-| Zeros          | 117-121      | 177-181      |
-| Val adicional  | 122-134      | —            |
-| Checksum       | 135-144      | 182-191      |
-| **Tamanho**    | **144**      | **191**      |
-
-**Regra de uso**: O IRPF gera Registro 86 (em vez de 84) quando o usuario seleciona
-o codigo 26 ("Outros") na tela de Rendimentos Isentos, pois esse codigo exige
-preenchimento obrigatorio da descricao textual.
 
 ---
 
@@ -807,8 +796,7 @@ analise inicial. Isso deslocava todas as posicoes subsequentes em +2.
 | 27       | **~85%**            | **ALTA**        | **Posicoes corrigidas, campos endereco confirmados (var05)** |
 | 28       | ~60%                | MEDIA           | SIM                |
 | 45       | **~80%**            | **ALTA**        | **Mapeado via var03/05: totais por fonte + metadados RRA** |
-| 84       | **~90%**            | **ALTA**        | **Rend Isentos e Nao Tributaveis (confirmado var03/03)** |
-| 86       | **~95%**            | **ALTA**        | **Novo: Rend Isentos cod 26 "Outros" — descricao livre pos 117-176 (mapeado via BASE)** |
+| 84       | **~90%**            | **ALTA**        | **Reclassificado: Rend Isentos (confirmado var03/03)** |
 | 39       | **100%**            | **ALTA**        | **COMPLETO** (mapeado via var12_saida) |
 | 88       | **~90%**            | **ALTA**        | **Reclassificado: Trib Exclusiva (confirmado var03/04)** |
 | T9       | ~50%                | MEDIA           | SIM                |
@@ -831,7 +819,7 @@ Para aumentar a confianca do mapeamento, seguir o protocolo:
 | 03/04 | **Trib exclusiva/definitiva** | **CONCLUIDA** | **Registro 88 reclassificado: armazena rend trib exclusiva (nao DARF). Cod 0006=aplicacoes financeiras. Valor pos 104-116 (R$10k→R$15k). Reg 24 cod 0006 = mesmo valor (nao e pensao). Estrutura identica ao Reg 84.** |
 | 03/05 | **Rend recebidos acumuladamente** | **CONCLUIDA** | **Reg 45 mudou pela 1a vez! Armazena totais por fonte + metadados RRA (mes pos 142-143, num meses pos 153). Valores BASE corrigidos (R$1,5k nao R$15k). Reg 24 cod 0007 = RRA (R$1k→R$1,9k).** |
 | 11 | **Imposto pago/retido** | **CONCLUIDA** | **Sem novos registros. Dados vao para Reg 19 (blocos 1,2 = imp exterior/complementar) e Reg 20 (blocos 24,25). Tela de resumo apenas afeta calculos.** |
-| 05 | **Bens e direitos** | **CONCLUIDA** | **Reg 27: posicoes corrigidas. Val anterior pos 532-544, val atual pos 545-557, logradouro pos 558-597, numero 598-603, compl 604-643, bairro 644-683, CEP 684-691, UF 693-694, IBGE 695-698, municipio 699-738. Cod item pos 14-15. CORRIGIDO: pos 16=flag exterior (0/1), pos 17-19=cod pais 3 digitos (105=Brasil, 149=Canada, 756=Africa do Sul). Grupo pos 1101-1102 (ALTA). Checksum corrigido para 1242-1251 (registro 1251 chars).** |
+| 05 | **Bens e direitos** | **CONCLUIDA** | **Reg 27: posicoes corrigidas. Val anterior pos 532-544, val atual pos 545-557, logradouro pos 558-597, numero 598-603, compl 604-643, bairro 644-683, CEP 684-691, UF 693-694, IBGE 695-698, municipio 699-738. Cod item pos 14-15. CORRIGIDO: pos 16=flag exterior (0/1), pos 17-19=cod pais 3 digitos (105=Brasil, 149=Canada, 756=Africa do Sul). Grupo pos 1101-1102 (ALTA). Checksum corrigido para 1242-1251 (registro 1251 chars). CONTA CORRENTE (grupo=06, cod=01): agencia 1023-1026, DV 1039, CNPJ banco 1041-1054, cod BACEN 1085-1087, CPF titular 1089-1099, num conta 1104-1112. CONFLITO: agencia/DV mapeados anteriormente em 863-866/880 — provavel outro subtipo de bem.** |
 | 06 | **Pagamento efetuado** | **CONCLUIDA** | **Reg 26: valor pago pos 106-118 (R$5k→R$9k), reembolso pos 119-131 (R$1.111→R$1.544), descricao pos 147+ confirmados. Campos val pago e reembolso = ALTA.** |
 | 04 | **Corrigir mapeamento dependente** | **CONCLUIDA** | **Reg 25: campo "Mora com titular" descoberto em pos 112 (estava AUSENTE). Gap 100-111 documentado como desconhecido (12 chars). DDD(203-204)+Cel(205-213) separados. Pos 214="2" constante (tipo tel?). CPF, nasc, nome, email todos confirmados.** |
 | 05 | Adicionar bem | CONCLUIDA | Estrutura registro 27 |

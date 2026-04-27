@@ -218,6 +218,45 @@ final class LeitorBemDireitoTest extends TestCase
         $this->assertSame(750000, $lido->lucrosDivImpostoPago->centavos);
     }
 
+    public function testDevePreservarDadosBancariosGrupo06(): void
+    {
+        $original = new RegistroBemDireitoDTO(
+            cpf: new Cpf('41653508000'),
+            codigoItem: '01',
+            codigoGrupo: '06',
+            agencia06: '0001',
+            dvConta06: '2',
+            cnpjBanco06: '29138344000143',
+            codBacen06: '260',
+            cpfTitular06: '41653508000',
+            numeroConta06: '104911308',
+        );
+
+        $linha = $this->gerador->gerar($original);
+        $this->assertSame(1251, strlen($linha));
+
+        // Verificar posicoes diretamente (pos 1-based → offset 0-based = pos - 1)
+        $this->assertSame('0001', substr($linha, 1022, 4));   // agencia06: pos 1023-1026
+        $this->assertSame('2', substr($linha, 1039, 1));       // dvConta06: pos 1040 (padding pos-agencia = 13 chars)
+        $this->assertSame(' ', substr($linha, 1040, 1));       // separador06: pos 1041
+        $this->assertSame('29138344000143', substr($linha, 1041, 14)); // cnpjBanco06: pos 1042-1055
+        $this->assertSame('260', substr($linha, 1085, 3));     // codBacen06: pos 1086-1088
+        $this->assertSame('T', substr($linha, 1088, 1));       // separadorT06: pos 1089
+        $this->assertSame('41653508000', substr($linha, 1089, 11)); // cpfTitular06: pos 1090-1100
+        $this->assertSame('104911308', substr($linha, 1103, 9));    // numeroConta06: pos 1104-1112
+
+        /** @var RegistroBemDireitoDTO $lido */
+        $lido = $this->leitor->ler($linha);
+
+        $this->assertSame('0001', $lido->agencia06);
+        $this->assertSame('2', $lido->dvConta06);
+        $this->assertSame('29138344000143', $lido->cnpjBanco06);
+        $this->assertSame('260', $lido->codBacen06);
+        $this->assertSame('41653508000', $lido->cpfTitular06);
+        $this->assertSame('104911308', $lido->numeroConta06);
+        $this->assertSame('06', $lido->codigoGrupo);
+    }
+
     public function testDeveSuportarTipoBemDireito(): void
     {
         $this->assertSame(TipoRegistro::BEM_DIREITO, $this->leitor->suportaTipo());

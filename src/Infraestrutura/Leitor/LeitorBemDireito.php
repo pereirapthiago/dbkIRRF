@@ -60,6 +60,12 @@ final class LeitorBemDireito extends LeitorRegistroBase
             lucrosDivValorRecebido: ValorMonetario::deString($l->extrair($linha, 'lucrosDivValorRecebido')),
             lucrosDivImpostoPago: ValorMonetario::deString($l->extrair($linha, 'lucrosDivImpostoPago')),
             camposAdicionaisRaw5b: $l->extrair($linha, 'camposAdicionaisRaw5b'),
+            agencia06: $l->extrair($linha, 'agencia06'),
+            dvConta06: $l->extrair($linha, 'dvConta06'),
+            cnpjBanco06: $l->extrair($linha, 'cnpjBanco06'),
+            codBacen06: $l->extrair($linha, 'codBacen06'),
+            cpfTitular06: $l->extrair($linha, 'cpfTitular06'),
+            numeroConta06: $l->extrairTexto($linha, 'numeroConta06'),
             checksum: Checksum::deLinha($linha),
         );
     }

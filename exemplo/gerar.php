@@ -415,12 +415,24 @@ foreach ($elab->elab_bens ?? [] as $bem) {
         renavam: $renavam,
         aplicFinancRendPerda: converterMonetario($bem->aplic_financ_rend_perda ?? '0'),
         aplicFinancImpExterior: converterMonetario($bem->aplic_financ_imp_exterior ?? '0'),
-        cnpj: $bem->cnpj ?? '',
+        cnpj: $codigoGrupo !== '06' ? ($bem->cnpj ?? '') : '',
         codigoGrupo: $codigoGrupo,
         aplicFinancRendPerdaAlt: converterMonetario($bem->aplic_financ_rend_perda ?? '0'),
         aplicFinancImpExteriorAlt: converterMonetario($bem->aplic_financ_imp_exterior ?? '0'),
         lucrosDivValorRecebido: converterMonetario($bem->lucros_div_valor_recebido ?? '0'),
         lucrosDivImpostoPago: converterMonetario($bem->lucros_div_imposto_pago ?? '0'),
+        // Dados bancarios — Grupo 06 (Depositos a vista e numerario)
+        // Campos: banco (BACEN), cnpj, agencia, conta, dv
+        agencia06: $codigoGrupo === '06'
+            ? str_pad(preg_replace('/\D/', '', $bem->agencia ?? ''), 4, '0', STR_PAD_LEFT)
+            : '0000',
+        dvConta06: $codigoGrupo === '06' ? ($bem->dv ?? ' ') : ' ',
+        cnpjBanco06: $codigoGrupo === '06' ? preg_replace('/\D/', '', $bem->cnpj ?? '') : '',
+        codBacen06: $codigoGrupo === '06'
+            ? str_pad(preg_replace('/\D/', '', $bem->banco ?? ''), 3, '0', STR_PAD_LEFT)
+            : '000',
+        cpfTitular06: $codigoGrupo === '06' ? $cpf->valor : '00000000000',
+        numeroConta06: $codigoGrupo === '06' ? ($bem->conta ?? '') : '',
     ));
 }
 
