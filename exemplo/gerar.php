@@ -415,6 +415,7 @@ foreach ($elab->elab_bens ?? [] as $bem) {
         renavam: $renavam,
         aplicFinancRendPerda: converterMonetario($bem->aplic_financ_rend_perda ?? '0'),
         aplicFinancImpExterior: converterMonetario($bem->aplic_financ_imp_exterior ?? '0'),
+        cnpj: $bem->cnpj ?? '',
         codigoGrupo: $codigoGrupo,
         aplicFinancRendPerdaAlt: converterMonetario($bem->aplic_financ_rend_perda ?? '0'),
         aplicFinancImpExteriorAlt: converterMonetario($bem->aplic_financ_imp_exterior ?? '0'),

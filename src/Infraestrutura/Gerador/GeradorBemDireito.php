@@ -24,7 +24,7 @@ final class GeradorBemDireito extends GeradorRegistroBase
         $r = $registro;
         $l = RegistroBemDireitoDTO::obterLayout();
 
-        return $l->montarLinha([
+        $valores = [
             'tipoRegistro' => $this->numero('27', $l->campo('tipoRegistro')->tamanho),
             'cpf' => $r->cpf->valor,
             'codigoItem' => $this->numero($r->codigoItem, $l->campo('codigoItem')->tamanho),
@@ -52,7 +52,6 @@ final class GeradorBemDireito extends GeradorRegistroBase
             'numeroConta' => $this->numero($r->numeroConta, $l->campo('numeroConta')->tamanho),
             'camposAdicionaisRaw3' => $this->rawOuEspacos($r->camposAdicionaisRaw3, $l->campo('camposAdicionaisRaw3')->tamanho),
             'aplicFinancRendPerda' => $this->monetario($r->aplicFinancRendPerda, $l->campo('aplicFinancRendPerda')->tamanho),
-            'aplicFinancImpExterior' => $this->monetario($r->aplicFinancImpExterior, $l->campo('aplicFinancImpExterior')->tamanho),
             'camposAdicionaisRaw4' => $this->rawOuEspacos($r->camposAdicionaisRaw4, $l->campo('camposAdicionaisRaw4')->tamanho),
             'codigoGrupo' => $this->numero($r->codigoGrupo, $l->campo('codigoGrupo')->tamanho),
             'camposAdicionaisRaw5a' => $this->rawOuEspacos($r->camposAdicionaisRaw5a, $l->campo('camposAdicionaisRaw5a')->tamanho),
@@ -61,6 +60,19 @@ final class GeradorBemDireito extends GeradorRegistroBase
             'lucrosDivValorRecebido' => $this->monetario($r->lucrosDivValorRecebido, $l->campo('lucrosDivValorRecebido')->tamanho),
             'lucrosDivImpostoPago' => $this->monetario($r->lucrosDivImpostoPago, $l->campo('lucrosDivImpostoPago')->tamanho),
             'camposAdicionaisRaw5b' => $this->rawOuEspacos($r->camposAdicionaisRaw5b, $l->campo('camposAdicionaisRaw5b')->tamanho),
-        ]);
+        ];
+
+        // Posicoes 1039-1055: layout condicional por grupo/codigo
+        // Grupo 07 / cod 99 usa aplicFinancImpExterior (pos 1039-1051)
+        // Demais grupos usam cnpj (pos 1042-1055)
+        if ($r->codigoGrupo === '07' && $r->codigoItem === '99') {
+            $valores['aplicFinancImpExterior'] = $this->monetario($r->aplicFinancImpExterior, $l->campo('aplicFinancImpExterior')->tamanho);
+        } else {
+            $valores['cnpj'] = $r->cnpj === ''
+                ? str_repeat(' ', $l->campo('cnpj')->tamanho)
+                : $this->numero($r->cnpj, $l->campo('cnpj')->tamanho);
+        }
+
+        return $l->montarLinha($valores);
     }
 }

@@ -61,11 +61,14 @@ final readonly class RegistroBemDireitoDTO implements RegistroInterface
         // Campos adicionais (posicoes 957-1025, conteudo desconhecido)
         public string $camposAdicionaisRaw3 = '',
 
-        // Investimento exterior
+        // Investimento exterior (grupo 07 / cod 99)
         public ValorMonetario $aplicFinancRendPerda = new ValorMonetario(0),
-        public ValorMonetario $aplicFinancImpExterior = new ValorMonetario(0),
+        public ValorMonetario $aplicFinancImpExterior = new ValorMonetario(0),  // pos 1039-1051
 
-        // Campos adicionais (posicoes 1052-1100, conteudo desconhecido)
+        // CNPJ — pos 1042-1055 (demais grupos; vazio = espacos; parcial = zeros a esquerda)
+        public string $cnpj = '',
+
+        // Campos adicionais (posicoes 1056-1100, conteudo desconhecido)
         public string $camposAdicionaisRaw4 = '',
 
         public string $codigoGrupo = '01',          // pos 1101-1102: grupo do bem (01=Imoveis, 02=Moveis, etc)
@@ -125,8 +128,9 @@ final readonly class RegistroBemDireitoDTO implements RegistroInterface
             new CampoDTO('numeroConta', 944, 13, TipoCampo::NUMERICO, descricao: 'Numero da conta bancaria'),
             new CampoDTO('camposAdicionaisRaw3', 957, 69, TipoCampo::ALFA, obrigatorio: false, descricao: 'Posicoes 957-1025 — conteudo desconhecido'),
             new CampoDTO('aplicFinancRendPerda', 1026, 13, TipoCampo::NUMERICO, descricao: 'Aplic Financ: Renda ou Perda (centavos)'),
-            new CampoDTO('aplicFinancImpExterior', 1039, 13, TipoCampo::NUMERICO, descricao: 'Aplic Financ: Imposto pago Exterior (centavos)'),
-            new CampoDTO('camposAdicionaisRaw4', 1052, 49, TipoCampo::ALFA, obrigatorio: false, descricao: 'Posicoes 1052-1100 — conteudo desconhecido'),
+            new CampoDTO('aplicFinancImpExterior', 1039, 13, TipoCampo::NUMERICO, descricao: 'Aplic Financ: Imposto pago Exterior — grupo 07 / cod 99 (centavos)'),
+            new CampoDTO('cnpj', 1042, 14, TipoCampo::ALFA, descricao: 'CNPJ — demais grupos (sobrepos. parcial c/ aplicFinancImpExterior)'),
+            new CampoDTO('camposAdicionaisRaw4', 1056, 45, TipoCampo::ALFA, obrigatorio: false, descricao: 'Posicoes 1056-1100 — conteudo desconhecido'),
             new CampoDTO('codigoGrupo', 1101, 2, TipoCampo::NUMERICO, descricao: 'Codigo grupo (01=Imoveis, 02=Moveis, etc)'),
             new CampoDTO('reservado1103', 1103, 1, TipoCampo::NUMERICO, obrigatorio: false, descricao: 'Posicao 1103 — constante "0"'),
             new CampoDTO('camposAdicionaisRaw5a', 1104, 82, TipoCampo::ALFA, obrigatorio: false, descricao: 'Posicoes 1104-1185 — conteudo desconhecido'),

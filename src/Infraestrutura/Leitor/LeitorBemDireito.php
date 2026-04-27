@@ -51,6 +51,7 @@ final class LeitorBemDireito extends LeitorRegistroBase
             camposAdicionaisRaw3: $l->extrair($linha, 'camposAdicionaisRaw3'),
             aplicFinancRendPerda: ValorMonetario::deString($l->extrair($linha, 'aplicFinancRendPerda')),
             aplicFinancImpExterior: ValorMonetario::deString($l->extrair($linha, 'aplicFinancImpExterior')),
+            cnpj: $l->extrairTexto($linha, 'cnpj'),
             camposAdicionaisRaw4: $l->extrair($linha, 'camposAdicionaisRaw4'),
             codigoGrupo: $l->extrair($linha, 'codigoGrupo'),
             camposAdicionaisRaw5a: $l->extrair($linha, 'camposAdicionaisRaw5a'),

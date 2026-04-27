@@ -124,6 +124,8 @@ final class LeitorBemDireitoTest extends TestCase
     {
         $original = new RegistroBemDireitoDTO(
             cpf: new Cpf('12345678901'),
+            codigoItem: '99',
+            codigoGrupo: '07',
             aplicFinancRendPerda: new ValorMonetario(500000),
             aplicFinancImpExterior: new ValorMonetario(75000),
         );
@@ -135,6 +137,49 @@ final class LeitorBemDireitoTest extends TestCase
 
         $this->assertSame(500000, $lido->aplicFinancRendPerda->centavos);
         $this->assertSame(75000, $lido->aplicFinancImpExterior->centavos);
+    }
+
+    public function testDevePreservarCnpj(): void
+    {
+        $original = new RegistroBemDireitoDTO(
+            cpf: new Cpf('12345678901'),
+            cnpj: '12345678000195',
+        );
+
+        $linha = $this->gerador->gerar($original);
+        $this->assertSame(1251, strlen($linha));
+
+        /** @var RegistroBemDireitoDTO $lido */
+        $lido = $this->leitor->ler($linha);
+
+        $this->assertSame('12345678000195', $lido->cnpj);
+    }
+
+    public function testCnpjVazioDeveSerPreenchidoComEspacos(): void
+    {
+        $original = new RegistroBemDireitoDTO(cpf: new Cpf('12345678901'));
+
+        $linha = $this->gerador->gerar($original);
+
+        $this->assertSame(str_repeat(' ', 14), substr($linha, 1041, 14));
+        /** @var RegistroBemDireitoDTO $lido */
+        $lido = $this->leitor->ler($linha);
+        $this->assertSame('', $lido->cnpj);
+    }
+
+    public function testCnpjParcialDeveSerPreenchidoComZerosAEsquerda(): void
+    {
+        $original = new RegistroBemDireitoDTO(
+            cpf: new Cpf('12345678901'),
+            cnpj: '12345678',
+        );
+
+        $linha = $this->gerador->gerar($original);
+
+        $this->assertSame('000000' . '12345678', substr($linha, 1041, 14));
+        /** @var RegistroBemDireitoDTO $lido */
+        $lido = $this->leitor->ler($linha);
+        $this->assertSame('00000012345678', $lido->cnpj);
     }
 
     public function testDevePreservarAplicFinancPosicaoAlternativa(): void
