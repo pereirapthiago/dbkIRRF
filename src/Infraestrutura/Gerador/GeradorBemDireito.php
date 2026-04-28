@@ -68,7 +68,7 @@ final class GeradorBemDireito extends GeradorRegistroBase
         // Demais grupos: usa cnpj (pos 1042-1055)
         if ($r->codigoGrupo === '06') {
             $valores['agencia06'] = $this->numero($r->agencia06, $l->campo('agencia06')->tamanho);
-            $valores['dvConta06'] = $r->dvConta06;
+            $valores['dvConta06'] = $this->texto($r->dvConta06, $l->campo('dvConta06')->tamanho);
             $valores['separador06'] = ' ';
             $valores['cnpjBanco06'] = $r->cnpjBanco06 === ''
                 ? str_repeat('0', $l->campo('cnpjBanco06')->tamanho)
